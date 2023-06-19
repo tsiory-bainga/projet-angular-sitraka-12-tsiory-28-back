@@ -39,11 +39,11 @@ function getAssignment(req, res){
 }
 
 // Ajout d'un assignment (POST)
-function postAssignment(matiere, req, res){
+function postAssignment(req, res){
     assignment.photoAuteur = req.body.photoAuteur;
     assignment.titre = req.body.titre;
     assignment.nomAuteur = req.body.nomAuteur;
-    assignment.matiere = matiere;
+    assignment.matiere = req.body.matiere;
     assignment.dateDeRendu = req.body.dateDeRendu;
     assignment.rendu = req.body.rendu;
     assignment.note = req.body.note;
