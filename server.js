@@ -1,7 +1,7 @@
 let express = require('express');
 let app = express();
 let bodyParser = require('body-parser');
-let assignment = require('./routes/assignments');
+var routes = require('./routes/routes');
 
 let mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
@@ -40,19 +40,9 @@ app.use(bodyParser.json());
 
 let port = process.env.PORT || 8010;
 
-// les routes
-const prefix = '/api';
 
-app.route(prefix + '/assignments')
-  .get(assignment.getAssignments)
-  .post(assignment.postAssignment)
-  .put(assignment.updateAssignment);
-
-app.route(prefix + '/assignments/:id')
-  .get(assignment.getAssignment)
-  .delete(assignment.deleteAssignment);
+app.use('/api',routes);
   
-
 // On démarre le serveur
 app.listen(port, "0.0.0.0");
 console.log('Serveur démarré sur http://localhost:' + port);
