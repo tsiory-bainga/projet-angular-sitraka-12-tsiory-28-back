@@ -1,12 +1,17 @@
 let mongoose = require('mongoose');
 let Schema = mongoose.Schema;
 var aggregatePaginate = require("mongoose-aggregate-paginate-v2");
+const matiere = require('./matiere');
 
 let AssignmentSchema = Schema({
-    id: Number,
-    dateDeRendu: Date,
-    nom: String,
-    rendu: Boolean
+    photoAuteur: String,
+    titre: String,
+    nomAuteur: String,
+    matiere: matiere.schema,
+    dateRendu: Date,
+    rendu: Boolean,
+    note: Number,
+    remarque: String
 });
 
 AssignmentSchema.plugin(aggregatePaginate);

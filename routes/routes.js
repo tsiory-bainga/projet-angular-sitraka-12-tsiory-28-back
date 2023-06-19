@@ -1,6 +1,7 @@
 var express = require('express');
-let assignment = require('../controllers/assignments');
-let user = require('../controllers/users');
+let assignment = require('../controllers/assignmentController');
+let user = require('../controllers/userController');
+let matiere = require('../controllers/matiereController')
 var User = require('../model/user');
 var VerifyToken = require('../verifyToken');
 const router = express.Router();
@@ -44,4 +45,14 @@ router.route('/users/:id')
   .delete(user.deleteUser)
   .put(user.updateUser);
  
+router.route('/matieres')
+  .get(matiere.getMatieres)
+  .post(matiere.createMatiere);
+
+router.route('/matieres/:id')
+  .get(matiere.getMatieresById)
+  .delete(matiere.deleteMatiere)
+  .put(matiere.updateMatiere);
+
+
 module.exports = router;

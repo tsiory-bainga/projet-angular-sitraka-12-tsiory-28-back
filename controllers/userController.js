@@ -8,9 +8,9 @@ function register(req, res){
     var hashedPassword = bcrypt.hashSync(req.body.password, 8);
     
     User.create({
-      name : req.body.name,
-      email : req.body.email,
-      password : hashedPassword
+      username : req.body.username,
+      password : hashedPassword,
+      admin: req.body.admin
     },
     function (err, user) {
       if (err) return res.status(500).send("There was a problem registering the user.")
@@ -22,7 +22,7 @@ function register(req, res){
 // Login
 function login(req, res){
 
-    User.findOne({ email: req.body.email }, function (err, user) {
+    User.findOne({ username: req.body.username }, function (err, user) {
       if (err) return res.status(500).send('Error on the server.');
       if (!user) return res.status(404).send('No user found.');
       
@@ -64,7 +64,7 @@ function getUsersById(req, res){
 function deleteUser(req, res){
     User.findByIdAndRemove(req.params.id, function (err, user) {
         if (err) return res.status(500).send("There was a problem deleting the user.");
-        res.status(200).send("User: "+ user.name +" was deleted.");
+        res.status(200).send("User: "+ user.username +" was deleted.");
     });
 };
 

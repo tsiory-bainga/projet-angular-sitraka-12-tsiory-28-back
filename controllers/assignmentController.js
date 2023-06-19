@@ -32,19 +32,22 @@ function getAssignments(req, res) {
 function getAssignment(req, res){
     let assignmentId = req.params.id;
 
-    Assignment.findOne({id: assignmentId}, (err, assignment) =>{
+    Assignment.findById(assignmentId, (err, assignment) =>{
         if(err){res.send(err)}
         res.json(assignment);
     })
 }
 
 // Ajout d'un assignment (POST)
-function postAssignment(req, res){
-    let assignment = new Assignment();
-    assignment.id = req.body.id;
-    assignment.nom = req.body.nom;
+function postAssignment(matiere, req, res){
+    assignment.photoAuteur = req.body.photoAuteur;
+    assignment.titre = req.body.titre;
+    assignment.nomAuteur = req.body.nomAuteur;
+    assignment.matiere = matiere;
     assignment.dateDeRendu = req.body.dateDeRendu;
     assignment.rendu = req.body.rendu;
+    assignment.note = req.body.note;
+    assignment.remarque = req.body.remarque;
 
     console.log("POST assignment reçu :");
     console.log(assignment)
@@ -62,7 +65,7 @@ function updateAssignment(req, res) {
     console.log("UPDATE recu assignment : ");
     console.log(req.body);
     
-    Assignment.findByIdAndUpdate(req.body._id, req.body, {new: true}, (err, assignment) => {
+    Assignment.findByIdAndUpdate(req.params.id, req.body, {new: true}, (err, assignment) => {
         if (err) {
             console.log(err);
             res.send(err)
