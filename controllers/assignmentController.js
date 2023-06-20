@@ -11,6 +11,26 @@ function getAssignmentsSansPagination(req, res){
     });
 }
 
+function getAssignmentsRendu(req, res) {
+    Assignment.find({ rendu: true }, (err, assignments) => {
+        if (err) {
+            res.send(err);
+        } else {
+            res.send(assignments);
+        }
+    });
+}
+
+function getAssignmentsNonRendu(req, res) {
+    Assignment.find({ rendu: false }, (err, assignments) => {
+        if (err) {
+            res.send(err);
+        } else {
+            res.send(assignments);
+        }
+    });
+}
+
 function getAssignments(req, res) {
     var aggregateQuery = Assignment.aggregate();
     
@@ -88,4 +108,4 @@ function deleteAssignment(req, res) {
 
 
 
-module.exports = { getAssignments, postAssignment, getAssignment, updateAssignment, deleteAssignment };
+module.exports = { getAssignments, postAssignment, getAssignment, updateAssignment, deleteAssignment, getAssignmentsRendu, getAssignmentsNonRendu };

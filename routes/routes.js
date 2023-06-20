@@ -11,6 +11,12 @@ router.route('/assignments')
   .post(assignment.postAssignment)
   .put(assignment.updateAssignment);
 
+router.route('/assignmentsRendu')
+  .get(assignment.getAssignmentsRendu)
+
+router.route('/assignmentsNonRendu')
+  .get(assignment.getAssignmentsNonRendu)
+
 router.route('/assignments/:id')
   .get(assignment.getAssignment)
   .delete(assignment.deleteAssignment);
