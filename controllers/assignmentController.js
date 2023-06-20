@@ -40,24 +40,21 @@ function getAssignment(req, res){
 
 // Ajout d'un assignment (POST)
 function postAssignment(req, res){
-    assignment.photoAuteur = req.body.photoAuteur;
-    assignment.titre = req.body.titre;
-    assignment.nomAuteur = req.body.nomAuteur;
-    assignment.matiere = req.body.matiere;
-    assignment.dateDeRendu = req.body.dateDeRendu;
-    assignment.rendu = req.body.rendu;
-    assignment.note = req.body.note;
-    assignment.remarque = req.body.remarque;
-
-    console.log("POST assignment reçu :");
-    console.log(assignment)
-
-    assignment.save( (err) => {
-        if(err){
-            res.send('cant post assignment ', err);
-        }
-        res.json({ message: `${assignment.nom} saved!`})
-    })
+    Assignment.create({
+        photoAuteur: req.body.photoAuteur,
+        titre: req.body.titre,
+        nomAuteur: req.body.nomAuteur,
+        matiere: req.body.matiere,
+        dateRendu: req.body.dateRendu,
+        rendu: req.body.rendu,
+        note: req.body.note,
+        remarque: req.body.remarque,
+    },
+    function (err, matiere) {
+        if (err) return res.status(500).send("There was a problem registering the assignment.")
+        
+        res.status(200).send(matiere);
+    });
 }
 
 // Update d'un assignment (PUT)
