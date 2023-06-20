@@ -22,8 +22,6 @@ router.route('/assignments/:id')
   .put(assignment.updateAssignment)
   .delete(assignment.deleteAssignment);
 
-router.route('/users')
-    .get(user.getUsers)
 
 router.route('/register')
     .post(user.register)
@@ -31,26 +29,17 @@ router.route('/register')
 router.route('/login')
     .post(user.login)
 
-router.get('/me', VerifyToken, function(req, res, next) {
+// router.get('/me', VerifyToken, function(req, res, next) {
 
-    User.findById(req.userId, { password: 0 }, function (err, user) {
-        if (err) return res.status(500).send("There was a problem finding the user.");
-        if (!user) return res.status(404).send("No user found.");
+//     User.findById(req.userId, { password: 0 }, function (err, user) {
+//         if (err) return res.status(500).send("There was a problem finding the user.");
+//         if (!user) return res.status(404).send("No user found.");
         
-        res.status(200).send(user);
-    });
+//         res.status(200).send(user);
+//     });
     
-});
+// });
       
-
-router.route('/logout')
-    .get(user.logout)
-
-
-router.route('/users/:id')
-  .get(user.getUsersById)
-  .delete(user.deleteUser)
-  .put(user.updateUser);
  
 router.route('/matieres')
   .get(matiere.getMatieres)

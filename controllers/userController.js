@@ -27,10 +27,11 @@ function login(req, res){
       if (!user) return res.status(404).send('No user found.');
       
       var passwordIsValid = bcrypt.compareSync(req.body.password, user.password);
-      if (!passwordIsValid) return res.status(401).send("Wrong Password");
+      if (!passwordIsValid) return res.status(401).send({ auth: false });
    
       res.status(200).send(
         {
+            auth: true,
             username : user.username,
             isAdmin : user.admin
         });
