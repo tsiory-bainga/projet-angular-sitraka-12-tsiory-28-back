@@ -12,23 +12,37 @@ function getAssignmentsSansPagination(req, res){
 }
 
 function getAssignmentsRendu(req, res) {
-    Assignment.find({ rendu: true }, (err, assignments) => {
-        if (err) {
+    var aggregateQuery = Assignment.aggregate();
+    aggregateQuery.match({ rendu: true });
+    Assignment.aggregatePaginate(aggregateQuery,
+        {
+            page: parseInt(req.query.page) || 1,
+            limit: parseInt(req.query.limit) || 10,
+        },
+        (err, assignments) => {
+          if (err) {
             res.send(err);
-        } else {
-            res.send(assignments);
+          }
+          res.send(assignments);
         }
-    });
+    );
 }
 
 function getAssignmentsNonRendu(req, res) {
-    Assignment.find({ rendu: false }, (err, assignments) => {
-        if (err) {
+    var aggregateQuery = Assignment.aggregate();
+    aggregateQuery.match({ rendu: false });
+    Assignment.aggregatePaginate(aggregateQuery,
+        {
+            page: parseInt(req.query.page) || 1,
+            limit: parseInt(req.query.limit) || 10,
+        },
+        (err, assignments) => {
+          if (err) {
             res.send(err);
-        } else {
-            res.send(assignments);
+          }
+          res.send(assignments);
         }
-    });
+    );
 }
 
 function getAssignments(req, res) {
