@@ -19,6 +19,7 @@ router.route('/assignmentsNonRendu')
 
 router.route('/assignments/:id')
   .get(assignment.getAssignment)
+  .put(assignment.updateAssignment)
   .delete(assignment.deleteAssignment);
 
 router.route('/users')
