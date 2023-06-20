@@ -35,10 +35,12 @@ function getMatieresById(req, res){
 
 // DELETES A MATIERE FROM THE DATABASE
 function deleteMatiere(req, res){
-    Matiere.findByIdAndRemove(req.params.id, function (err, matiere) {
-        if (err) return res.status(500).send("There was a problem deleting the matiere.");
-        res.status(200).send("Matiere: "+ matiere.name +" was deleted.");
-    });
+    Matiere.findByIdAndRemove(req.params.id, (err, matiere) => {
+        if (err) {
+            res.send(err);
+        }
+        res.json({message: `${matiere.nom} deleted`});
+    })
 };
 
 // UPDATES A SINGLE MATIERE IN THE DATABASE
