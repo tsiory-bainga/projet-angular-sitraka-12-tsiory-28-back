@@ -35,13 +35,18 @@ app.use(function (req, res, next) {
 });
 
 // Pour les formulaires
-app.use(bodyParser.urlencoded({extended: true}));
-app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded({extended: true}));
+// app.use(bodyParser.json());
+
+app.use(express.json({ limit: '50mb' }))
+app.use(express.urlencoded({ extended: true, limit: '50mb' }))
 
 let port = process.env.PORT || 8010;
 
 
 app.use('/api',routes);
+
+
   
 // On démarre le serveur
 app.listen(port, "0.0.0.0");
